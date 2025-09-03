@@ -184,7 +184,7 @@ class DemoPage extends StatelessWidget {
               bottomContentAxisAlignment: MainAxisAlignment.center,
               bottomContentSpacing: 2,
               imageUrl: "https://via.placeholder.com/150",
-              imageSize: 100,
+              imageSize: 250,
 
               //onTap: // optional - if not provided, item is not clickable and you can make individual widgets clickable
               //  () => {print("Item tapped")},
