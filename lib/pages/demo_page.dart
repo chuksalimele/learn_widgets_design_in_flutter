@@ -101,6 +101,7 @@ class DemoPage extends StatelessWidget {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
             VerticalTicker(
+              alignment: Alignment.centerLeft,
               items: const [
                 Text('Free shipping over \$30'),
                 Text('2 years warranty'),
@@ -153,7 +154,12 @@ class DemoPage extends StatelessWidget {
                 ),
                 RightListItemRowItem(
                   children: [
+                    Text("Me"),
+                    Spacer(),
                     VerticalTicker(
+                      alignment:
+                          Alignment
+                              .centerRight, //centerLeft or centerRight depending position of RightListItemRowItem
                       items: const [
                         Text('Free shipping over \$30'),
                         Text('2 years warranty'),

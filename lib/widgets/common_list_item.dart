@@ -85,7 +85,21 @@ class RightListItemRowItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hasSpacer = children.any((c) => c is Spacer);
+
+    // Case 1: Only one child and no Spacer → wrap in Flexible(loose)
+    if (children.length == 1 && !hasSpacer) {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: alignment,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [Flexible(fit: FlexFit.loose, child: children.first)],
+      );
+    }
+
+    // Case 2: Multiple children or Spacer present → just normal Row
     return Row(
+      mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: alignment,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: children,

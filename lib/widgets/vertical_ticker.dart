@@ -6,7 +6,7 @@ class VerticalTicker extends StatefulWidget {
   final double height;
   final Duration animationDuration;
   final Duration pauseDuration;
-  final AlignmentGeometry alignment; // new, configurable
+  final AlignmentGeometry alignment;
 
   const VerticalTicker({
     super.key,
@@ -14,7 +14,7 @@ class VerticalTicker extends StatefulWidget {
     required this.height,
     this.animationDuration = const Duration(milliseconds: 600),
     this.pauseDuration = const Duration(seconds: 2),
-    this.alignment = Alignment.centerLeft, // default left
+    this.alignment = Alignment.centerLeft,
   });
 
   @override
@@ -48,14 +48,24 @@ class _VerticalTickerState extends State<VerticalTicker> {
     super.dispose();
   }
 
+  /// Helper: wrap an item so it shrink-wraps horizontally,
+  /// and honors the requested alignment (left/center/right).
+  Widget _shrinkWrappedItem(Widget child) {
+    // Row(mainAxisSize: MainAxisSize.min) makes the box size to the child.
+    // Then Align places that box according to widget.alignment.
+    return Align(
+      alignment: widget.alignment,
+      child: Row(mainAxisSize: MainAxisSize.min, children: [child]),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: widget.height,
-      // keep the outer container minimal so parent constraints are preserved
+      // AnimatedSwitcher stack alignment and transitionBuilder handle animation.
       child: AnimatedSwitcher(
         duration: widget.animationDuration,
-        // IMPORTANT: change the Stack alignment from center → your alignment
         layoutBuilder: (Widget? currentChild, List<Widget> previousChildren) {
           return Stack(
             alignment: widget.alignment,
@@ -79,22 +89,20 @@ class _VerticalTickerState extends State<VerticalTicker> {
                     end: const Offset(0, -1),
                   ).animate(ReverseAnimation(animation));
 
-          // Wrap the moving widget in Align so it is pinned to the left during the motion
+          // SlideTransition + Align + Row(min) ensures the moving widget
+          // is pinned to the requested edge and has shrink-wrapped width.
           return ClipRect(
             child: SlideTransition(
               position: offsetAnim,
-              child: Align(alignment: widget.alignment, child: child),
+              child: _shrinkWrappedItem(child),
             ),
           );
         },
-        // the actual child; keep its key so AnimatedSwitcher knows which is incoming/outgoing
         child: SizedBox(
           key: ValueKey<int>(_currentIndex),
           height: widget.height,
-          child: Align(
-            alignment: widget.alignment,
-            child: widget.items[_currentIndex],
-          ),
+          // The permanent (non-animating) child must also be shrink-wrapped.
+          child: _shrinkWrappedItem(widget.items[_currentIndex]),
         ),
       ),
     );
