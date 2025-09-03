@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learn_widgets_design_in_flutter/widgets/button_list.dart';
 import 'package:learn_widgets_design_in_flutter/widgets/chip_button_list.dart';
+import 'package:learn_widgets_design_in_flutter/widgets/grid_item.dart';
 import 'package:learn_widgets_design_in_flutter/widgets/list_item.dart';
 import 'package:learn_widgets_design_in_flutter/widgets/horizontal_stack.dart';
 import 'package:learn_widgets_design_in_flutter/widgets/icon_button_list.dart';
@@ -114,7 +115,7 @@ class DemoPage extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             const Text(
-              'Common List Item',
+              'List Item',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
             ListItem(
@@ -126,6 +127,68 @@ class DemoPage extends StatelessWidget {
               //onTap: // optional - if not provided, item is not clickable and you can make individual widgets clickable
               //  () => {print("Item tapped")},
               rightItems: [
+                HorizontalStack(
+                  children: [
+                    Text(
+                      "Title",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Spacer(),
+                    Text("\$20"),
+                  ],
+                ),
+                HorizontalStack(
+                  children: [
+                    Icon(Icons.star, size: 16, color: Colors.orange),
+                    Text("4.5 (200 reviews)"),
+                    Spacer(),
+                    Icon(
+                      Icons.trolley,
+                      size: 20,
+                      color: const Color.fromARGB(255, 115, 210, 72),
+                    ),
+                  ],
+                ),
+                HorizontalStack(
+                  children: [
+                    Text("In Stock", style: TextStyle(color: Colors.green)),
+                  ],
+                ),
+                HorizontalStack(
+                  children: [
+                    Text("Me"),
+                    Spacer(),
+                    VerticalTicker(
+                      alignment:
+                          Alignment
+                              .centerRight, //centerLeft or centerRight depending position of HorizontalStack
+                      items: const [
+                        Text('Free shipping over \$30'),
+                        Text('2 years warranty'),
+                        Text('New arrival'),
+                      ],
+                      height: 18,
+                      animationDuration: Duration(milliseconds: 400),
+                      pauseDuration: Duration(seconds: 2),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            const Text(
+              'Grid Item',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+            GridItem(
+              bottomContentAxisAlignment: MainAxisAlignment.center,
+              bottomContentSpacing: 2,
+              imageUrl: "https://via.placeholder.com/150",
+              imageSize: 100,
+
+              //onTap: // optional - if not provided, item is not clickable and you can make individual widgets clickable
+              //  () => {print("Item tapped")},
+              bottomItems: [
                 HorizontalStack(
                   children: [
                     Text(
