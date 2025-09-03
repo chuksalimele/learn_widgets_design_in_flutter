@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:learn_widgets_design_in_flutter/widgets/horizontal_stack.dart';
 
 /// Represents the full list item with image on left and stacked rows on right
-class CommonListItem extends StatelessWidget {
+class ListItem extends StatelessWidget {
   final MainAxisAlignment rightContentAxisAlignment;
   final double rightContentSpacing;
   final String? imageUrl;
   final double imageSize;
-  final List<RightListItemRowItem> rightItems;
+  final List<HorizontalStack> rightItems;
   final double spacing;
   final VoidCallback? onTap;
 
-  const CommonListItem({
+  const ListItem({
     super.key,
     this.rightContentAxisAlignment = MainAxisAlignment.center,
     this.rightContentSpacing = 0,
@@ -73,50 +74,17 @@ class CommonListItem extends StatelessWidget {
 }
 
 /// Represents a single horizontal row inside the right column
-class RightListItemRowItem extends StatelessWidget {
-  final List<Widget> children;
-  final MainAxisAlignment alignment;
-
-  const RightListItemRowItem({
-    super.key,
-    required this.children,
-    this.alignment = MainAxisAlignment.start,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final hasSpacer = children.any((c) => c is Spacer);
-
-    // Case 1: Only one child and no Spacer → wrap in Flexible(loose)
-    if (children.length == 1 && !hasSpacer) {
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: alignment,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [Flexible(fit: FlexFit.loose, child: children.first)],
-      );
-    }
-
-    // Case 2: Multiple children or Spacer present → just normal Row
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: alignment,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: children,
-    );
-  }
-}
 
 /// Example usage:
 /*
-            CommonListItem(
+            ListItem(
               rightContentAxisAlignment: MainAxisAlignment.center,
               rightContentSpacing: 2,
               imageUrl: "https://via.placeholder.com/150",
               imageSize: 100,
               onTap: () => {print("Item tapped")}, // optional - if not provided, item is not clickable
               rightItems: [
-                RightListItemRowItem(
+                HorizontalStack(
                   children: [
                     Text(
                       "Title",
@@ -126,7 +94,7 @@ class RightListItemRowItem extends StatelessWidget {
                     Text("\$20"),
                   ],
                 ),
-                RightListItemRowItem(
+                HorizontalStack(
                   children: [
                     Icon(Icons.star, size: 16, color: Colors.orange),
                     Text("4.5 (200 reviews)"),
@@ -138,7 +106,7 @@ class RightListItemRowItem extends StatelessWidget {
                     ),
                   ],
                 ),
-                RightListItemRowItem(
+                HorizontalStack(
                   children: [
                     Text("In Stock", style: TextStyle(color: Colors.green)),
                   ],

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learn_widgets_design_in_flutter/widgets/button_list.dart';
 import 'package:learn_widgets_design_in_flutter/widgets/chip_button_list.dart';
-import 'package:learn_widgets_design_in_flutter/widgets/common_list_item.dart';
+import 'package:learn_widgets_design_in_flutter/widgets/list_item.dart';
+import 'package:learn_widgets_design_in_flutter/widgets/horizontal_stack.dart';
 import 'package:learn_widgets_design_in_flutter/widgets/icon_button_list.dart';
 import 'package:learn_widgets_design_in_flutter/widgets/selectable_button_list.dart';
 import 'package:learn_widgets_design_in_flutter/widgets/vertical_ticker.dart';
@@ -116,7 +117,7 @@ class DemoPage extends StatelessWidget {
               'Common List Item',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
-            CommonListItem(
+            ListItem(
               rightContentAxisAlignment: MainAxisAlignment.center,
               rightContentSpacing: 2,
               imageUrl: "https://via.placeholder.com/150",
@@ -125,7 +126,7 @@ class DemoPage extends StatelessWidget {
               //onTap: // optional - if not provided, item is not clickable and you can make individual widgets clickable
               //  () => {print("Item tapped")},
               rightItems: [
-                RightListItemRowItem(
+                HorizontalStack(
                   children: [
                     Text(
                       "Title",
@@ -135,7 +136,7 @@ class DemoPage extends StatelessWidget {
                     Text("\$20"),
                   ],
                 ),
-                RightListItemRowItem(
+                HorizontalStack(
                   children: [
                     Icon(Icons.star, size: 16, color: Colors.orange),
                     Text("4.5 (200 reviews)"),
@@ -147,19 +148,19 @@ class DemoPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                RightListItemRowItem(
+                HorizontalStack(
                   children: [
                     Text("In Stock", style: TextStyle(color: Colors.green)),
                   ],
                 ),
-                RightListItemRowItem(
+                HorizontalStack(
                   children: [
                     Text("Me"),
                     Spacer(),
                     VerticalTicker(
                       alignment:
                           Alignment
-                              .centerRight, //centerLeft or centerRight depending position of RightListItemRowItem
+                              .centerRight, //centerLeft or centerRight depending position of HorizontalStack
                       items: const [
                         Text('Free shipping over \$30'),
                         Text('2 years warranty'),
